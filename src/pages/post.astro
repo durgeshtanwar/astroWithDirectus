@@ -1,0 +1,26 @@
+---
+import Header from '../components/Header.jsx'
+import Footer from '../components/Footer.jsx'
+import Post from '../components/Post.jsx'
+let title = "Astro Blog Page"
+
+const articles = await fetch(`${import.meta.env.PUBLIC_API_URL}/items/articles?access_token=${import.meta.env.PUBLIC_ACCESS_TOKEN}`).then(response => response.json());
+
+---
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link
+        rel="stylesheet"
+        href={Astro.resolve("../styles/global.css")}
+    >
+</head>
+<body>
+<Header />
+<Post content = {articles} client:load />
+<Footer />
+</body>
+</html>
